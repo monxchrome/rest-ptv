@@ -1,26 +1,37 @@
-{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/csslog.css' %}">
+<link rel="stylesheet" href="{% static 'js/jslog.css' %}">
+<h2><a href="mainp">MONXSENSE</a></h2>
+<div class="container" id="container">
+	<div class="form-container sign-up-container">
+		<form action="{% url 'account_login' %}" method="post">
+			{% csrf_token %}
+			<h1>Are you sure?</h1>
+		</form>
+	</div>
+	<div class="form-container sign-in-container">
+		<form action="{% url 'account_logout' %}" method="post">
+			{% csrf_token %}
+			<h1>Are you sure?</h1>
+			<div class="social-container">
 
-{% block content %}
+			</div>
 
-<section class="hero is-primary is-fullheight">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-5-tablet is-4-desktop is-3-widescreen">
-          <form action="{% url 'account_logout' %}" method="post"  class="box">
-              {% csrf_token %}
-              {% if redirect_field_value %}
-                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
-              {% endif %}
-              <div class="box has-text-centered">
-                  <p>Бажаєте вийти?</p>
-                  <button type="submit" class="button is-danger has-text-centered">Вийти</button>
-              </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+			<button class="button is success" type="submit">Log Out</button>
 
-{% endblock content %}
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Welcome Back!</h1>
+				<p>To keep connected with us please login with your personal info</p>
+				<button class="ghost" id="signIn" type="submit">Are you sure?</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>:(</h1>
+				<p>:(:(:(:(:(:(:(:(:(:(:(:(</p>
+			</div>
+		</div>
+	</div>
+</div>

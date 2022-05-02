@@ -32,13 +32,13 @@
         </ol>
     {% endif %}
     <hr>
-    <h2>Добавить комментарий:  <span id="reply_comment" style="display: none"> Reply </span></h2>
+    <h2>Add Comment:  <span id="reply_comment" style="display: none"> Reply </span></h2>
 
     <form action="create_comment" method="post" id="form">
         {% csrf_token %}
         <input type="text" name="comment" required>
         <input type="hidden" name="parent_id" id="parent_id">
-        <button type="submit">Сохранить комментарий</button>
+        <button type="submit">Save Comment</button>
     </form>
 
 </div>

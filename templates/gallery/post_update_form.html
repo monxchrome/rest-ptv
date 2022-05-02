@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1 class="has-text-centered has-text-weight-bold is-size-1">Редактировать пост</h1>
+<h1 class="has-text-centered has-text-weight-bold is-size-1">Update post</h1>
 <!--<form method="post" enctype="multipart/form-data">-->
 <!--    {% csrf_token %}-->
 <!--    {{ form.as_p }}-->
@@ -13,17 +13,17 @@
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="field">
-        <label class="label">Название</label>
+        <label class="label">Title</label>
         <input type="text" class="input" {{ form.title }}
     </div>
 
     <div class="field">
-        <label class="label">Загрузите медиафайл</label>
+        <label class="label">Meida</label>
         <input type="file" class="input" {{ form.file }}
     </div>
 
     <div class="field">
-        <label class="label">Описание</label>
+        <label class="label">Description</label>
         <textarea class="textarea" {{ form.description}}</textarea>
     </div>
 

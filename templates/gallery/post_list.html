@@ -4,7 +4,7 @@
 <div class="container box">
 
     <div class="content is-large">
-        <h1>Список постов</h1>
+        <h1>Posts</h1>
     </div>
     <div class="columns is-multiline">
     {% for post in object_list %}
@@ -51,7 +51,7 @@
 
     {% endfor %}
             </div>
-    <a href="{% url 'create_post' %}"><p>Добавить пост</p></a>
+    <a href="{% url 'create_post' %}"><p>Make a post</p></a>
     <hr>
     <div class="container has-text-centered">
         {% load my_tags %}

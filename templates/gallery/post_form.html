@@ -2,25 +2,25 @@
 
 {% block content %}
 
-<h1 class="has-text-centered has-text-weight-bold is-size-1">Добавить пост</h1>
+<h1 class="has-text-centered has-text-weight-bold is-size-1">Add post</h1>
 
 <div class="container content-box">
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="field">
-        <label class="label">Название</label>
+        <label class="label">Title</label>
         <input type="text" class="input" {{ form.title }}
     </div>
 
     <div class="field">
-        <label class="label">Загрузите медиафайл</label>
+        <label class="label">Add media</label>
         {{ form.file }}
     </div>
     <span class="has-text-danger"> {{ form.file.errors }} </span>
 
     <div class="field">
-        <label class="label">Описание</label>
+        <label class="label">Description</label>
         <textarea class="textarea" {{ form.description}}</textarea>
     </div>
 
