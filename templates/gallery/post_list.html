@@ -1,0 +1,74 @@
+{% extends 'post_base.html' %}
+
+{% block content %}
+<div class="container box">
+
+    <div class="content is-large">
+        <h1>Список постов</h1>
+    </div>
+    <div class="columns is-multiline">
+    {% for post in object_list %}
+      <div class="column is-one-quarter-desktop is-half-tablet">
+        <div class="card">
+            <div class="card-image">
+                <figure class="image is-3by2">
+                  <img src="{{post.file_thumb.url}}" alt="">
+                </figure>
+                <div class="card-content is-overlay is-clipped">
+                  <span class="tag is-info">
+                    likes: {{ post.likes.count }}
+                  </span>
+                </div>
+            </div>
+            <footer class="card-footer">
+                <a class="card-footer-item" href="{% url 'post_detail' post.slug %}">
+                  <i class="fa-solid fa-asterisk"></i>
+                </a>
+                {% if user.is_authenticated %}
+                    <a class="card-footer-item" href="{% url 'post_likes' post.slug %}?page={{ page_obj.number }}">
+                      {% if user in post.likes.all %}
+                        <i class="fa-solid fa-heart has-text-danger"></i>
+                      {% else %}
+                        <i class="fa-regular fa-heart has-text-danger"></i>
+                      {% endif %}
+                    </a>
+                {% endif %}
+                {% if request.user.id == post.user.id %}
+                <a class="card-footer-item" href="{% url 'update_post' post.slug %}">
+                  <i class="fa-solid fa-pencil"></i>
+                </a>
+                <a class="card-footer-item" href="{% url 'delete_post' post.slug %}">
+                  <i class="fa-solid fa-trash"></i>
+                </a>
+                {% endif %}
+
+
+            </footer>
+        </div>
+      </div>
+
+
+
+    {% endfor %}
+            </div>
+    <a href="{% url 'create_post' %}"><p>Добавить пост</p></a>
+    <hr>
+    <div class="container has-text-centered">
+        {% load my_tags %}
+        {% if page_obj.has_previous %}
+            <a href="?{% param_replace page=1 %}" class="icon has-text-danger"><i class="fa-solid fa-angles-left"></i></a>
+            <a href="?{% param_replace page=page_obj.previous_page_number %}" class="icon has-text-danger"><i class="fa-solid fa-angle-left"></i></a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?{% param_replace page=page_obj.next_page_number %}" class="icon has-text-danger"><i class="fa-solid fa-angle-right"></i></a>
+            <a href="?{% param_replace page=page_obj.paginator.num_pages %}" class="icon has-text-danger"><i class="fa-solid fa-angles-right"></i></a>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock content %}

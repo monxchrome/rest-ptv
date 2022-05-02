@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container box">
+    <h1>{{object.title}}</h1>
+    <p>author: {{ object.user }}, created at: {{ object.created_at }}    </p>
+
+    <img src="{{ object.file.url }}" width="100%">
+
+    <hr>
+
+    {% if object.comments.exists %}
+        <ol>
+        {% for comment in object.comments.all %}
+            {% if not comment.parent %}
+                <li>
+                    {{ comment }}
+                    {% if comment.user != request.user %}
+                    <a onclick="addParent({{comment.id}}, '{{comment.title}}')" href="#form">ответить</a>
+                    {% endif %}
+
+                    {% if comment.childs.exists %}
+                        <ul>
+                        {% for child_comment in comment.childs.all %}
+                            <li>{{child_comment}}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endif %}
+        {% endfor %}
+        </ol>
+    {% endif %}
+    <hr>
+    <h2>Добавить комментарий:  <span id="reply_comment" style="display: none"> Reply </span></h2>
+
+    <form action="create_comment" method="post" id="form">
+        {% csrf_token %}
+        <input type="text" name="comment" required>
+        <input type="hidden" name="parent_id" id="parent_id">
+        <button type="submit">Сохранить комментарий</button>
+    </form>
+
+</div>
+
+<script>
+    function addParent(id, text) {
+        document.getElementById("parent_id").value = id;
+        document.getElementById("reply_comment").innerHTML = "на комментарий: " + text;
+        document.getElementById("reply_comment").style.display = 'block';
+    }
+</script>
+
+{% endblock content %}
